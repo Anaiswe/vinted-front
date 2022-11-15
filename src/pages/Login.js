@@ -44,9 +44,9 @@ const Login = () => {
           value={password}
           onChange={(event) => setPassword(event.target.value)}
         />
-        {/* <span class="signup-login-error-message">
+        <span class="signup-login-error-message">
           Mauvais email ou mauvais mot de passe
-        </span> */}
+        </span>
         <button className="button-connect" type="submit">
           Connexion
         </button>

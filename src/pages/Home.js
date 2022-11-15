@@ -10,7 +10,7 @@ import Pagination from "../components/Pagination";
 
 const Home = ({ data, setData, page, priceSort, setPriceSort }) => {
   const [isLoading, setIsLoading] = useState(true);
-
+  // const [page, setPage] = useState(1);
   const location = useLocation();
   useEffect(() => {
     try {
@@ -43,15 +43,17 @@ const Home = ({ data, setData, page, priceSort, setPriceSort }) => {
               {/* <RangerPrice setRangePrice={setRangePrice} /> */}
             </div>
             <div>
-              <div>Trier par prix :</div>
-              <button
-                className="sort-button"
-                onClick={() => {
-                  setPriceSort(!priceSort);
-                }}
-              >
-                <div>{priceSort ? "⇣" : "⇡"}</div>
-              </button>
+              <div className="sort-desc-asc">
+                Trier par prix croissant ou décroissant :
+                <button
+                  className="sort-button"
+                  onClick={() => {
+                    setPriceSort(!priceSort);
+                  }}
+                >
+                  <div>{priceSort ? "⇣" : "⇡"}</div>
+                </button>
+              </div>
             </div>
           </div>
         ) : null}

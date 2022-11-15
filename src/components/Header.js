@@ -43,7 +43,7 @@ const Header = ({ token, handleToken, inputSearchBar, setInputSearchBar }) => {
       </div>
       {!token ? (
         <>
-          <div className="right-bloc-header">
+          <div className="right-bloc">
             <Link to="/signup">
               <button className="signlog-button">S'inscrire</button>
             </Link>

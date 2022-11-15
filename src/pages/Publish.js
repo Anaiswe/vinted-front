@@ -1,10 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate, Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Publish = ({ token }) => {
-  console.log(token);
-  //   IMPORT STATES
+  // console.log(token);
+
   const [picture, setPicture] = useState(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -14,7 +14,6 @@ const Publish = ({ token }) => {
   const [condition, setCondition] = useState("");
   const [city, setCity] = useState("");
   const [price, setPrice] = useState("");
-
   const [preview, setPreview] = useState(null);
 
   const navigate = useNavigate();
@@ -36,14 +35,14 @@ const Publish = ({ token }) => {
 
       const response = await axios.post(
         "https://lereacteur-vinted-api.herokuapp.com/offer/publish",
-        formData
+        formData,
         // A activer (désactivé pour visualiser le formulaire)
-        // {
-        //   headers: {
-        //     Authorization: "Bearer " + token,
-        //     "Content-Type": "multipart/form-data",
-        //   },
-        // }
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
 
       if (response.data._id) {
@@ -54,8 +53,8 @@ const Publish = ({ token }) => {
       console.log(error);
     }
   };
-  // return token ?
-  return (
+  // return
+  return token ? (
     <form className="publish-form" onSubmit={handleSubmit}>
       <div className="publish-title">Vends ton article</div>
 
@@ -176,10 +175,9 @@ const Publish = ({ token }) => {
         </div>
       </div>
     </form>
+  ) : (
+    <Navigate to="/Login" />
   );
-  // ) : (
-  //   <Navigate to="/Publish" />
-  // );
 };
 
 export default Publish;

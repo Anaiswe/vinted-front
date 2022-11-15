@@ -18,6 +18,7 @@ import Offer from "./pages/Offer";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Publish from "./pages/Publish";
+import Payment from "./pages/Payment";
 
 // Import Components
 import Header from "./components/Header";
@@ -29,7 +30,7 @@ const App = () => {
   const [data, setData] = useState(null);
   const [inputSearchBar, setInputSearchBar] = useState("");
   const [priceSort, setPriceSort] = useState(false);
-  const [rangePrice, setRangePrice] = useState([0, 500]);
+  const [rangePrice] = useState([0, 500]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,10 +63,6 @@ const App = () => {
           handleToken={handleToken}
           inputSearchBar={inputSearchBar}
           setInputSearchBar={setInputSearchBar}
-          rangePrice={rangePrice}
-          setRangePrice={setRangePrice}
-          priceSort={priceSort}
-          setPriceSort={setPriceSort}
         />
         <Routes>
           <Route
@@ -74,12 +71,9 @@ const App = () => {
               <Home
                 data={data}
                 setData={setData}
-                inputSearchBar={inputSearchBar}
-                setInputSearchBar={setInputSearchBar}
-                rangePrice={rangePrice}
-                setRangePrice={setRangePrice}
                 priceSort={priceSort}
                 setPriceSort={setPriceSort}
+                // page={setPage}
               />
             }
           />
@@ -89,7 +83,8 @@ const App = () => {
             path="/signup"
             element={<Signup handleToken={handleToken} />}
           />
-          <Route path="/publish" element={<Publish />} />
+          <Route path="/publish" element={<Publish token={token} />} />
+          <Route path="/payment" element={<Payment />} />
         </Routes>
         <Footer />
       </Router>

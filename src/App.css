@@ -31,15 +31,36 @@ img {
 }
 
 .signlog-button {
-  background-color: #fff;
-  border-radius: 10%;
-  color: #2baeb7;
+  background-color: white;
+  color: #2eb0ba;
+  border: 1px solid #2eb0ba;
+  margin-right: 20px;
+  width: 100%;
 }
 
 .sell-button {
-  background-color: #2baeb7;
-  border-radius: 10%;
-  color: #fff;
+  background-color: #2eb0ba;
+  color: white;
+  margin-left: 50px;
+  width: 100%;
+  border: 1px solid #2eb0ba;
+}
+
+.searchBar {
+  font-size: 13px;
+  height: 4px;
+  width: 100%;
+  background-color: #f5f6f7;
+  border: none;
+  padding: 20px;
+  border-radius: 10px;
+  outline: none;
+  padding-left: 60px;
+  margin-bottom: 20px;
+}
+
+.right-bloc {
+  display: flex;
 }
 
 /* Home */
@@ -48,6 +69,25 @@ img {
   text-align: center;
   font-size: 100px;
   color: seagreen;
+}
+
+.home-sort {
+  display: flex;
+  flex-direction: column;
+}
+
+.sort-desc-asc {
+  display: flex;
+}
+
+.sort-button {
+  font-size: 20px;
+  color: #f5f6f7;
+  width: 30px;
+  background-color: #2baeb7;
+  border: #f5f6f7;
+  border-radius: 10px;
+  font-weight: 900;
 }
 
 .home-container {
