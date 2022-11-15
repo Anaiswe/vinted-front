@@ -36,13 +36,14 @@ const Publish = ({ token }) => {
 
       const response = await axios.post(
         "https://lereacteur-vinted-api.herokuapp.com/offer/publish",
-        formData,
-        {
-          headers: {
-            Authorization: "Bearer " + token,
-            "Content-Type": "multipart/form-data",
-          },
-        }
+        formData
+        // A activer (désactivé pour visualiser le formulaire)
+        // {
+        //   headers: {
+        //     Authorization: "Bearer " + token,
+        //     "Content-Type": "multipart/form-data",
+        //   },
+        // }
       );
 
       if (response.data._id) {
@@ -53,7 +54,8 @@ const Publish = ({ token }) => {
       console.log(error);
     }
   };
-  return token ? (
+  // return token ?
+  return (
     <form className="publish-form" onSubmit={handleSubmit}>
       <div className="publish-title">Vends ton article</div>
 
@@ -174,9 +176,10 @@ const Publish = ({ token }) => {
         </div>
       </div>
     </form>
-  ) : (
-    <Navigate to="/Publish" />
   );
+  // ) : (
+  //   <Navigate to="/Publish" />
+  // );
 };
 
 export default Publish;
