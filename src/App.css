@@ -22,6 +22,26 @@ img {
   max-height: 100%;
 }
 
+/* Header */
+.header-container {
+  display: flex;
+  justify-content: space-around;
+  margin: auto;
+  padding: 10px 0;
+}
+
+.signlog-button {
+  background-color: #fff;
+  border-radius: 10%;
+  color: #2baeb7;
+}
+
+.sell-button {
+  background-color: #2baeb7;
+  border-radius: 10%;
+  color: #fff;
+}
+
 /* Home */
 
 .loading {
@@ -59,14 +79,6 @@ img {
 .offer-details {
   color: black;
   font-size: 14px;
-}
-
-/* Header */
-.header-container {
-  display: flex;
-  justify-content: space-around;
-  margin: auto;
-  padding: 10px 0;
 }
 
 /* Banner */

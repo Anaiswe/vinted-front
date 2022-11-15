@@ -1,79 +1,69 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 // COMPONENTS
 import OfferCard from "../components/OfferCard";
 import Hero from "../components/Hero";
+import Pagination from "../components/Pagination";
 
-// import FilterPrice from "../components/FilterPrice";
+// import RangerPrice from "../components/RangePrice";
 
-const Home = ({ inputSearchBar, priceAsc }) => {
-  const [data, setData] = useState();
+const Home = ({ data, setData, page, priceSort, setPriceSort }) => {
   const [isLoading, setIsLoading] = useState(true);
 
-  const fetchDataInput = async (inputSearchBar) => {
-    const response = await axios.get(
-      `https://lereacteur-vinted-api.herokuapp.com/offers?title=${inputSearchBar}`
-    );
-    setData(response.data);
-    setIsLoading(false);
-  };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "https://lereacteur-vinted-api.herokuapp.com/offers"
-        );
-        setData(response.data);
-        setIsLoading(false);
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    if (inputSearchBar.length > 0) {
-      try {
-        fetchDataInput(inputSearchBar);
-      } catch (error) {
-        console.log(error.message);
-      }
-    }
-  }, [inputSearchBar]);
-
+  const location = useLocation();
   useEffect(() => {
     try {
-      const sortPrice = async () => {
+      const fetchData = async () => {
         const response = await axios.get(
-          `https://lereacteur-vinted-api.herokuapp.com/offers?sort=${
-            priceAsc ? "price-asc" : "price-desc"
-          }`
+          `https://lereacteur-vinted-api.herokuapp.com/offers?limit=15&page=${page}`
         );
-        const dataPrice = response.data;
-        setData(dataPrice);
+        console.log(response.data);
+        setData(response.data);
         setIsLoading(false);
+        window.scrollTo(0, 0);
       };
-      sortPrice();
+      fetchData();
     } catch (error) {
-      console.log(error.message);
+      console.log({ error: error.message });
     }
-  }, [priceAsc]);
+  }, [setData, page]);
 
-  return isLoading ? (
-    <p className="Loading">Loading ...</p>
+  return isLoading === true ? (
+    <span className="Loading">Loading ...</span>
   ) : (
-    <>
+    <div>
       <Hero />
+
+      <div className="home-sort">
+        {location.pathname === "/" ? (
+          <div className="home-sort">
+            <div className="trie-range">
+              <div>Prix entre :</div>
+              {/* <RangerPrice setRangePrice={setRangePrice} /> */}
+            </div>
+            <div>
+              <div>Trier par prix :</div>
+              <button
+                className="sort-button"
+                onClick={() => {
+                  setPriceSort(!priceSort);
+                }}
+              >
+                <div>{priceSort ? "⇣" : "⇡"}</div>
+              </button>
+            </div>
+          </div>
+        ) : null}
+      </div>
       <div className="home-container">
         {data.offers.map((offer) => {
           console.log(offer);
           return <OfferCard key={offer._id} offerInfos={offer} />;
         })}
       </div>
-    </>
+      <Pagination />
+    </div>
   );
 };
-
 export default Home;

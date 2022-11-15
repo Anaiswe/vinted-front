@@ -1,3 +1,5 @@
+// intégration des prices filters
+
 // // à importer (non effectif)
 
 // import React, { useState } from "react";
@@ -6,7 +8,7 @@
 // const MIN = 0;
 // const MAX = 500;
 
-// const FilterPrice = ({ setFetchPrices }) => {
+// const RangeFilterPrice = ({ setFetchPrices }) => {
 //   const [pricesValues, setPricesValues] = useState([10, 500]);
 
 //   return (
@@ -82,4 +84,4 @@
 //   );
 // };
 
-// export default FilterPrice;
+// export default RangeFilterPrice;

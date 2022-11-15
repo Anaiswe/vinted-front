@@ -1,75 +1,77 @@
 import vinted_logo from "../assets/vinted-logo.svg";
-
+import axios from "axios";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
-// import FilterPrice from "./FilterPrice";
-const Header = ({
-  token,
-  handleToken,
-  inputSearchBar,
-  setInputSearchBar,
-  priceAsc,
-  setPriceAsc,
-}) => {
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
+const Header = ({ token, handleToken, inputSearchBar, setInputSearchBar }) => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    try {
+      const fetchData = async () => {
+        const response = await axios.get(
+          `https://lereacteur-vinted-api.herokuapp.com/offers?title=${inputSearchBar}`
+        );
+        console.log(response.data);
+      };
+      fetchData();
+    } catch (error) {
+      console.log({ error: error.message });
+    }
+  }, [inputSearchBar]);
   return (
-    <header>
-      <div className="header-container">
-        {token ? (
+    <div className="header-container">
+      <div
+        onClick={() => {
+          navigate("/");
+        }}
+      >
+        <Link to="/home">
+          <img className="header-logo" src={vinted_logo} alt="vinted-logo" />
+        </Link>
+      </div>
+      <div className="header-searchBar">
+        <input
+          className="searchBar"
+          type="text"
+          placeholder="Vous recherchez un article ?"
+          value={inputSearchBar}
+          onChange={(event) => {
+            setInputSearchBar(event.target.value);
+          }}
+        />
+      </div>
+      {!token ? (
+        <>
+          <div className="right-bloc-header">
+            <Link to="/signup">
+              <button className="signlog-button">S'inscrire</button>
+            </Link>
+            <Link to="/login">
+              <button className="signlog-button">Se connecter</button>
+            </Link>
+            <Link to="/publish">
+              <button className="sell-button">Vends tes articles</button>
+            </Link>
+          </div>
+        </>
+      ) : (
+        <>
+          <Link to="/publish">
+            <button className="sell-button">Vends tes articles</button>
+          </Link>{" "}
           <button
-            className="header-button"
+            className="quit-button"
             onClick={() => {
-              handleToken(null);
+              Cookies.remove("token");
+              handleToken();
             }}
           >
-            Se déconnecter
+            Deconnexion
           </button>
-        ) : (
-          <>
-            <Link to="/">
-              <img
-                className="header-logo"
-                src={vinted_logo}
-                alt="vinted-logo"
-              />
-            </Link>
-            <div className="search-container">
-              <input
-                className="input-search-bar"
-                type="text"
-                placeholder="Vous recherchez un article ?"
-                value={inputSearchBar}
-                onChange={(event) => {
-                  setInputSearchBar(event.target.value);
-                }}
-              />
-            </div>
-            <div className="container-price-sort">
-              <div className="sort-price-main">
-                <div>trier par prix : </div>
-                <div className="sort-menu">
-                  <div
-                    className="sort-by-price"
-                    onClick={() => setPriceAsc(!priceAsc)}
-                  >
-                    {priceAsc ? "↑" : "↓"}
-                  </div>
-                </div>
-                {/* <span className="FilterPrice">
-                  <FilterPrice />
-                </span> */}
-              </div>
-            </div>
-
-            <Link to="/Signup">
-              <button>Inscription</button>
-            </Link>
-
-            <Link to="/Login">
-              <button>Connexion</button>
-            </Link>
-          </>
-        )}
-      </div>
-    </header>
+        </>
+      )}
+    </div>
   );
 };
 
